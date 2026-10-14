@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "leetcode-hot100-双指针-C语言"
-date: 2026-10-01 18:00:00 +0800
 categories: 题解更新
 tags: [leetcode, hot100]
 ---
