@@ -179,3 +179,49 @@ int main() {
 指针mid标识三元组的第二个元素，遍历left过程中mid初始位置为left+1，指针right标识三元组中的第三个元素，初始位置为nums_size-1；
 遍历left时，mid右移、right左移转化为双指针；每次遇到符合题意的三元组就记录，并更新结果数组的大小；
 left向右遍历、mid向右遍历以及right向左遍历时时如果存在重复元素，由于题目要求不重复，因此跳过。
+
+
+接雨水
+---c
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int rain_water_solve(int* nums, int nums_size) {
+	if (nums_size < 2) {
+		return 0;
+	}
+	int left = 0;
+	int right = nums_size - 1;
+	int water = 0;
+	int maxleft = 0;
+	int maxright = 0;
+	while (left < right) {
+		maxleft = fmax(nums[left], maxleft);
+		maxright = fmax(nums[right], maxright);
+		if (maxleft < maxright) {
+			water += maxleft - nums[left];
+			left++;
+		}
+		else {
+			water += maxright - nums[right];
+			right--;
+		}
+	}
+	return water;
+}
+int main() {
+	int* nums = calloc(1000, sizeof(int));
+	int nums_size = 0;
+	int x;
+	while (scanf("%d", &x) == 1) {
+		nums[nums_size++] = x;
+	}
+	int ans = rain_water_solve(nums, nums_size);
+	printf("%d", ans);
+	free(nums);
+	return 0;
+}
+
+解题思路：每个位置处的水量由左右两侧较低一侧的最大元素决定，利用指针left和right从两次向中间走，记录并更新左右两侧最大元素；
+每个位置处的盛水量等于该元素与左右两侧较低一侧的最大元素之间的差值，water用于实时累加接水量。
