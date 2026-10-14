@@ -56,6 +56,7 @@ int main() {
 
 解题思路：指针cur用来遍历数组，指针target用来标识非零元素即将出现的位置，cur遇到非零元素就将该元素交换至target所指位置，然后cur和target同时右移，cur遇到零则只有cur右移。
 
+
 盛水最多的容器
 ---c
 #define _CRT_SECURE_NO_WARNINGS
