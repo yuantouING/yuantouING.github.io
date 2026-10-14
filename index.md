@@ -1,4 +1,4 @@
 ---
 layout: home
-title: 我的学习记录
+title: 首页
 ---
