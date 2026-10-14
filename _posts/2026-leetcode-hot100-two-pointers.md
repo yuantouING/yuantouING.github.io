@@ -96,3 +96,86 @@ int main() {
 
 解题思路：由于需要盛水最多，因此优先考虑宽度最大，指针left和right初始分别指向左右边界，同时由于要盛水，只有较低一侧才可以保证盛水，
 此时宽度为right-left，高度为nums[left]，cur_water实时计算盛水量，maxwater更新全局最大盛水量。
+
+
+三数之和
+---c
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+int cmp(const void* a, const void* b) {
+	return *(int*)a - *(int*)b;
+}
+int** Three_sum(int* nums, int nums_size, int target, int* return_size, int** return_col_size) {
+	if (nums_size < 3) {
+		*return_size = 0;
+		return NULL;
+	}
+	int** ret = calloc(nums_size * nums_size, sizeof(int*));
+	*return_col_size = calloc(nums_size * nums_size, sizeof(int));
+	qsort(nums, nums_size, sizeof(int), cmp);
+	for (int left = 0; left < nums_size - 2; left++) {
+		int mid = left + 1;
+		if (left > 0 && nums[left] == nums[left - 1]) {
+			continue;
+		}
+		int right = nums_size - 1;
+		while (mid < right) {
+			int sum = nums[left] + nums[mid] + nums[right];
+			if (sum == target) {
+				ret[*return_size] = calloc(3, sizeof(int));
+				ret[*return_size][0] = nums[left];
+				ret[*return_size][1] = nums[mid];
+				ret[*return_size][2] = nums[right];
+				(*return_col_size)[*return_size] = 3;
+				(*return_size)++;
+				while (mid < right && nums[mid] == nums[mid + 1]) {
+					mid++;
+				}
+				while (mid < right && nums[right] == nums[right - 1]) {
+					right--;
+				}
+				mid++;
+				right--;
+			}
+			else if (sum < target) {
+				mid++;
+			}
+			else {
+				right--;
+			}
+		}
+	}
+	return ret;
+}
+int main() {
+	int* nums = calloc(1000, sizeof(int));
+	int nums_size = 0;
+	int x;
+	while (scanf("%d", &x) == 1) {
+		nums[nums_size++] = x;
+	}
+	int return_size = 0;
+	int* return_col_size;
+	int** ans = Three_sum(nums, nums_size, 0, &return_size, &return_col_size);
+	for (int i = 0; i < return_size; i++) {
+		for (int j = 0; j < return_col_size[i]; j++) {
+			if (j > 0) {
+				printf(" ");	
+			}
+			printf("%d", ans[i][j]);
+		}
+		printf("\n");
+	}
+	for (int i = 0; i < return_size; i++) {
+		free(ans[i]);
+	}
+	free(ans);
+	free(return_col_size);
+	free(nums);
+	return 0;
+}
+
+解题思路：首先需要对原数组排序，方便后续进行有序的遍历；指针left标识三元组的第一个元素，
+可能的下标范围为0~nums_size-3，指针mid标识三元组的第二个元素，指针right标识三元组中的第三个元素，遍历left时转化为双指针；
+用left向右遍历、用mid向右遍历以及用right向左遍历时时如果存在重复元素，由于题目要求不重复，因此跳过。
