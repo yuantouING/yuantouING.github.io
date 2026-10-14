@@ -1,4 +1,30 @@
+
+title: "yuantouING 的博客"
+description: "记录 LeetCode 刷题与学习笔记"
+url: "https://yuantouING.github.io"
+baseurl: ""
+
+author:
+  name: "yuantouING"
+
+
 theme: minima
-title: 我的学习日常记录
-description: 记录学习内容
+
 future: true
+
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
