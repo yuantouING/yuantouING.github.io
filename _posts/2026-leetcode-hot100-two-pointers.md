@@ -2,7 +2,7 @@
 layout: post
 title: "leetcode-hot100-双指针-C语言"
 categories: 题解更新
-date: 2024-10-02 10:00:00 +0800
+date: 2026-10-02 10:00:00 +0800
 tags: [leetcode, hot100]
 ---
 
@@ -53,13 +53,14 @@ int main() {
 	free(nums);
 	return 0;
 }
+```
 
 解题思路：指针cur用来遍历数组，指针target用来标识非零元素即将出现的位置，cur遇到非零元素就将该元素交换至target所指位置，
 然后cur和target同时右移，cur遇到零则只有cur右移。
 
 
 盛水最多的容器
----c
+```c
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -93,13 +94,14 @@ int main() {
 	free(nums);
 	return 0;
 }
+```
 
 解题思路：由于需要盛水最多，因此优先考虑宽度最大，指针left和right初始分别指向左右边界，同时由于要盛水，只有较低一侧才可以保证盛水，
 此时宽度为right-left，高度为nums[left]，cur_water实时计算盛水量，maxwater更新全局最大盛水量。
 
 
 三数之和
----c
+```c
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -175,6 +177,7 @@ int main() {
 	free(nums);
 	return 0;
 }
+```
 
 解题思路：首先需要对原数组排序，方便后续进行有序的遍历；指针left标识三元组的第一个元素，可能的下标范围为0~nums_size-3；
 指针mid标识三元组的第二个元素，遍历left过程中mid初始位置为left+1，指针right标识三元组中的第三个元素，初始位置为nums_size-1；
@@ -183,7 +186,7 @@ left向右遍历、mid向右遍历以及right向左遍历时时如果存在重�
 
 
 接雨水
----c
+```c
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -223,6 +226,7 @@ int main() {
 	free(nums);
 	return 0;
 }
+```
 
 解题思路：每个位置处的水量由左右两侧较低一侧的最大元素决定，利用指针left和right从两次向中间走，记录并更新左右两侧最大元素；
 每个位置处的盛水量等于该元素与左右两侧较低一侧的最大元素之间的差值，water用于实时累加接水量。
